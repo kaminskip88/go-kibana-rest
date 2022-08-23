@@ -35,14 +35,14 @@ func (s *KBAPITestSuite) TestKibanaSpaces() {
 
 	// Copy object on space
 	parameter := &KibanaSpaceCopySavedObjectParameter{
-		Spaces:            []string{"test"},
+		Spaces:            []string{"test2"},
 		IncludeReferences: true,
 		Overwrite:         false,
 		CreateNewCopies:   true,
 		Objects: []KibanaSpaceObjectParameter{
 			{
 				Type: "config",
-				ID:   "7.12.1",
+				ID:   "8.3.2",
 			},
 		},
 	}

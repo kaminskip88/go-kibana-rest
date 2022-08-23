@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	basePathKibanaShortenURL = "/api/shorten_url" // Base URL to access on Kibana shorten URL
+	basePathKibanaShortenURL = "/api/short_url" // Base URL to access on Kibana shorten URL
 )
 
 // ShortenURL is the shorten URL object
@@ -16,9 +16,19 @@ type ShortenURL struct {
 	URL string `json:"url"`
 }
 
+type shortURLReq struct {
+	LocatorId string        `json:"locatorId"`
+	Params    shortURLParam `json:"params"`
+}
+
+type shortURLParam struct {
+	URL string `json:"url"`
+}
+
 // ShortenURLResponse is the shorten URL object response
 type ShortenURLResponse struct {
-	ID string `json:"urlId"`
+	ID   string `json:"id"`
+	Slug string `json:"slug"`
 }
 
 // KibanaShortenURLCreate permit to create new shorten URL
@@ -45,7 +55,11 @@ func newKibanaShortenURLCreateFunc(c *resty.Client) KibanaShortenURLCreate {
 		}
 		log.Debug("Shorten URL: ", shortenURL)
 
-		jsonData, err := json.Marshal(shortenURL)
+		var req shortURLReq
+		req.LocatorId = "LEGACY_SHORT_URL_LOCATOR"
+		req.Params.URL = shortenURL.URL
+
+		jsonData, err := json.Marshal(req)
 		if err != nil {
 			return nil, err
 		}

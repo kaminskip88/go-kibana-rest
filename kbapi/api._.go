@@ -13,6 +13,8 @@ type API struct {
 	KibanaStatus           *KibanaStatusAPI
 	KibanaLogstashPipeline *KibanaLogstashPipelineAPI
 	KibanaShortenURL       *KibanaShortenURLAPI
+	KibanaDataView         *KibanaDataViewAPI
+	KibanaSavedObjectV2    *KibanaSavedObjectV2API
 }
 
 // KibanaSpacesAPI handle the spaces API
@@ -68,6 +70,22 @@ type KibanaShortenURLAPI struct {
 	Create KibanaShortenURLCreate
 }
 
+// KibanaDataViewAPI handle the data view management API
+type KibanaDataViewAPI struct {
+	Get    KibanaDataViewGet
+	Create KibanaDataViewCreate
+	Update KibanaDataViewUpdate
+	Delete KibanaDataViewDelete
+}
+
+// KibanaDataViewAPI handle the data view management API
+type KibanaSavedObjectV2API struct {
+	Get    KibanaSavedObjectV2Get
+	Create KibanaSavedObjectV2Create
+	Update KibanaSavedObjectV2Update
+	Delete KibanaSavedObjectV2Delete
+}
+
 // New initialise the API implementation
 func New(c *resty.Client) *API {
 	return &API{
@@ -109,6 +127,18 @@ func New(c *resty.Client) *API {
 		},
 		KibanaShortenURL: &KibanaShortenURLAPI{
 			Create: newKibanaShortenURLCreateFunc(c),
+		},
+		KibanaDataView: &KibanaDataViewAPI{
+			Get:    newKibanaDataViewGetFunc(c),
+			Create: newKibanaDataViewCreateFunc(c),
+			Update: newKibanaDataViewUpdateFunc(c),
+			Delete: newKibanaDataViewDeleteFunc(c),
+		},
+		KibanaSavedObjectV2: &KibanaSavedObjectV2API{
+			Get:    newKibanaSavedObjectV2GetFunc(c),
+			Create: newKibanaSavedObjectV2CreateFunc(c),
+			Update: newKibanaSavedObjectV2UpdateFunc(c),
+			Delete: newKibanaSavedObjectV2Func(c),
 		},
 	}
 }

@@ -16,6 +16,7 @@ func (s *KBAPITestSuite) TestKibanaDashboard() {
 	}
 	data := make(map[string]interface{})
 	err = json.Unmarshal(b, &data)
+	assert.NoError(s.T(), err)
 	err = s.API.KibanaDashboard.Import(data, nil, true, "default")
 	assert.NoError(s.T(), err)
 
@@ -31,6 +32,7 @@ func (s *KBAPITestSuite) TestKibanaDashboard() {
 	}
 	data = make(map[string]interface{})
 	err = json.Unmarshal(b, &data)
+	assert.NoError(s.T(), err)
 	err = s.API.KibanaDashboard.Import(data, nil, true, "testacc")
 	assert.NoError(s.T(), err)
 

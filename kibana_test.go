@@ -36,7 +36,7 @@ func (s *KBTestSuite) TestNewClient() {
 
 	cfg := Config{
 		Address:          "http://127.0.0.1:5601",
-		Username:         "elastic",
+		Username:         "kibana_system",
 		Password:         "changeme",
 		DisableVerifySSL: true,
 	}
