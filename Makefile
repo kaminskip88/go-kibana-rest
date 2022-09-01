@@ -27,4 +27,4 @@ compose.logs: docker-elk
 docker-elk:
 	git clone https://github.com/deviantony/docker-elk.git
 
-.PHONY: test fmt compose.up compose.down compose.logs
+.PHONY: test fmt compose.up compose.down compose.logs docker-elk

@@ -13,6 +13,8 @@ type Config struct {
 	Username         string
 	Password         string
 	DisableVerifySSL bool
+	DisableWarn      bool
+	Debug            bool
 	CAs              []string
 }
 
@@ -37,7 +39,9 @@ func NewClient(cfg Config) (*Client, error) {
 		SetHostURL(cfg.Address).
 		SetBasicAuth(cfg.Username, cfg.Password).
 		SetHeader("kbn-xsrf", "true").
-		SetHeader("Content-Type", "application/json")
+		SetHeader("Content-Type", "application/json").
+		SetDisableWarn(cfg.DisableWarn).
+		SetDebug(cfg.Debug)
 
 	for _, path := range cfg.CAs {
 		restyClient.SetRootCertificate(path)
